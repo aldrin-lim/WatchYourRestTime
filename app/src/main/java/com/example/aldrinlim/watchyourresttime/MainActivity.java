@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        // call start timer function
         startTimer();
 
 
@@ -47,13 +49,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     void startTimer () {
-        timer.scheduleAtFixedRate(new TimerTask() {
 
+        // create a timer thread for running time
+        timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
+                // use ui thread to change text while time is running
                runOnUiThread(new Runnable() {
                    @Override
                    public void run() {
-                       Log.d("debug", "seconds: " + sec);
                        sec++;
                        textTimer.setText(formatSecToTimer(sec));
                    }
@@ -62,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         }, 1000, 1000);
     }
 
+
+    // format seconds to mm:ss
     String formatSecToTimer(int sec) {
         Date d = new Date(sec * 1000L);
         SimpleDateFormat df = new SimpleDateFormat("mm:ss"); // HH for 0-23
